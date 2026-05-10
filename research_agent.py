@@ -67,11 +67,13 @@ def run_research(client: anthropic.Anthropic, topic: str) -> str:
     )
 
     usage = response.usage
+    content = response.content
     print(
         f"[Research Agent] Tokens — input: {usage.input_tokens}, "
         f"output: {usage.output_tokens}, "
         f"cache_created: {getattr(usage, 'cache_creation_input_tokens', 0)}, "
-        f"cache_read: {getattr(usage, 'cache_read_input_tokens', 0)}"
+        f"cache_read: {getattr(usage, 'cache_read_input_tokens', 0)}",
+        f"content: {getattr(content[0],'text','n/a')}"
     )
 
     return response.content[0].text
